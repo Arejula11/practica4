@@ -17,8 +17,8 @@ all: costemsolape
 # Compilacion
 costemsolape.o: costemsolape.cpp
 	${CC} -c costemsolape.cpp -I ../practica3 ${CPPFLAGS}
-maxsolape.o: ../practica3/maxsolape.cpp ./practica3/maxsolape.hpp
-	${CC} -c ./practica3/maxsolape.cpp ${CPPFLAGS}
+maxsolape.o: ../practica3/maxsolape.cpp ../practica3/maxsolape.hpp
+	${CC} -c ../practica3/maxsolape.cpp ${CPPFLAGS}
 
 # Linkado
 costemsolape: costemsolape.o maxsolape.o 

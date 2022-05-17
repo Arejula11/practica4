@@ -2,6 +2,8 @@
 #include "maxsolape.hpp"
 #include <time.h>
 #include <cstdlib>
+#include <ctime>
+#include <iomanip>
 
 using namespace std;
 const int DERECHA = 100;
@@ -12,6 +14,7 @@ int numRandInter(){
 	srand(semilla);
 	int numIntervalos;
 	numIntervalos= DERECHA+rand()%(IZQUIERDA-DERECHA+1);
+	return numIntervalos;
 
 }
 
@@ -30,20 +33,36 @@ void randomInter(double intervalos[N][2], const int numIntervalos){
 	
 
 }
+void fuerzaBruta(double intervalos[N][2], const int numIntervalos){
+	clock_t start = clock();
+	tpSolape sol = maxSolFBruta(intervalos,numIntervalos);
+	clock_t end = clock();
+	double tiempo = (end-start);
+	cout<<fixed<<setw(1)<<tiempo<<" microsegundos"<<endl;
 
+
+}
+
+void DyV(tpInter indinters[N], int p, int f){
+	maxSolDyV(indinters,p,f);
+
+
+
+
+}
 
 int main(){
-		
+
 	double intervalos[N][2];
 	const int numIntervalos = numRandInter();
 	randomInter(intervalos, numIntervalos);
-	cout<<numIntervalos<<endl;
-	for(int i = 0; i<numIntervalos;i++){
-
-	cout <<i << ": " <<  intervalos[i][0] << " - " <<  intervalos[i][1]<< endl;
-	} 
+	fuerzaBruta(intervalos,numIntervalos);
+	tpInter inditerns[N];
+	int p,f;
+	DyV(inditerns,p,f);
+	
+	
 	
 
-	
 	return 0;
 }
