@@ -1,22 +1,15 @@
 #include <iostream>
+#include <fstream>
+#include <string>
 #include "maxsolape.hpp"
 #include <time.h>
 #include <cstdlib>
-#include <ctime>
 #include <iomanip>
 
 using namespace std;
 const int DERECHA = 100;
 const int IZQUIERDA = 4000;
-
-int numRandInter(){
-	time_t semilla = time(nullptr);
-	srand(semilla);
-	int numIntervalos;
-	numIntervalos= DERECHA+rand()%(IZQUIERDA-DERECHA+1);
-	return numIntervalos;
-
-}
+const int DIFFINTER = 50;
 
 void randomInter(double intervalos[N][2], const int numIntervalos){
 	time_t semilla = time(nullptr);
@@ -37,8 +30,9 @@ void fuerzaBruta(double intervalos[N][2], const int numIntervalos){
 	clock_t start = clock();
 	tpSolape sol = maxSolFBruta(intervalos,numIntervalos);
 	clock_t end = clock();
-	double tiempo = (end-start);
-	cout<<fixed<<setw(1)<<tiempo<<" microsegundos"<<endl;
+	float tiempo = (float(end-start)*1000000)/CLOCKS_PER_SEC;
+	cout<<tiempo<<" microsegundos ";
+	cout<<end<<"--"<<start<<endl;
 
 
 }
@@ -52,11 +46,17 @@ void DyV(tpInter indinters[N], int p, int f){
 }
 
 int main(){
-
 	double intervalos[N][2];
-	const int numIntervalos = numRandInter();
-	randomInter(intervalos, numIntervalos);
-	fuerzaBruta(intervalos,numIntervalos);
+	ofstream g;
+	string nombre = "tfb.txt";
+	for (int i = DERECHA; i < IZQUIERDA; i+=DIFFINTER){
+		cout<<i<<": ";
+		
+		randomInter(intervalos, i);
+		fuerzaBruta(intervalos,i);
+	}
+	
+	
 	tpInter inditerns[N];
 	int p,f;
 	DyV(inditerns,p,f);
